@@ -1,0 +1,343 @@
+
+
+
+.project-container{
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  padding: 6rem 6rem 0.5rem 6rem;
+}
+
+.floating-card,
+.container-header,
+.selectionBox {
+  pointer-events: auto;
+}
+
+/* -------------------------------- */
+/* HEADER LAYOUT */
+/* -------------------------------- */
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3.3rem;
+  width: 100%;
+}
+
+/* left and right sides */
+.container-headerLeft,
+.container-headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.container-headerLeft {
+  justify-content: flex-start;
+}
+
+.container-headerRight {
+  justify-content: flex-end;
+}
+
+.fileCountBox{
+  width: auto;
+  padding: 0 1rem;
+  height: 2.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileCountBox p{
+  font-size: 1.05rem;
+  color: var(--color-six);
+  font-weight: 600;
+}
+
+/* -------------------------------- */
+/* DROPDOWN BOX */
+/* -------------------------------- */
+.selectionBox {
+  position: relative;
+  width: 180px;
+  height: 2.3rem;
+}
+
+.dropdown-btn {
+  width: 100%;
+  height: 100%;
+  padding: 0 0.7rem;
+  border: 1px solid var(--color-five);
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-btn:hover {
+  background-color: var(--color-five);
+  border-radius: 8px;
+}
+
+/* Dropdown panel */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: var(--color-eleven);
+  border: 1px solid var(--color-five);
+  border-radius: 8px;
+  z-index: 20;
+  box-shadow: 0 0 10px var(--color-eleven);
+  padding: 1rem 0;
+}
+
+/* Activate */
+.selectionBox.open .dropdown-content {
+  display: block;
+}
+
+/* Items */
+.dropdown-content label { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  gap: 1rem; 
+  padding: 0.3rem 0.5rem; 
+  cursor: pointer; 
+  border-bottom: 1px solid var(--color-eight);
+}
+
+.dropdown-content label:hover {
+  background-color: var(--color-five);
+}
+
+.dropdown-content input {
+  transform: scale(1.1);
+}
+
+.dropdown-content input:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.dropdown-content label span {
+  display: inline-block;   /* or block */
+  max-width: 200px;
+  white-space: nowrap;     /* REQUIRED */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-content label:hover span {
+  white-space: normal;
+  overflow: visible;
+}
+
+
+
+/* -------------------------------- */
+/* RIGHT BUTTONS */
+/* -------------------------------- */
+
+.container-headerRight button {
+  background: transparent;
+  color: var(--color-six);
+  border: 1.2px solid var(--color-five);
+  border-radius: 8px;
+  height: 2.3rem;
+  min-width: 6rem;
+  padding: 0.1rem 1rem;
+  transition: background 200ms ease;
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+.container-headerRight button:hover {
+  background: var(--color-five);
+  cursor: pointer;
+}
+
+/* Active state */
+.container-headerRight button.active,
+.selectionBox.active {
+  background-color: var(--color-five);
+  border-radius: 8px;
+}
+
+
+/* -------------------------------- */
+/* Container Body */
+/* -------------------------------- */
+
+.container-body {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.container-body .container-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table-body{
+  overflow-y: scroll;
+  height: calc(100vh - 16rem);
+}
+
+/* TABLE ROWS */
+.table-row {
+  height: 4rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 200px 1fr 200px 200px 100px;
+  align-items: center;
+  border-bottom: 1px solid var(--color-eight);
+  padding: 0 1rem;
+}
+
+.table-row.table-header {
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: var(--color-six);
+  background-color: var(--color-five);
+}
+
+/* CELLS */
+.table-cell {
+  padding: 0 0.5rem;
+  overflow: hidden; 
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* DESCRIPTION CELL */
+.desc-cell {
+  max-width: 97%;
+  transition: all 300ms ease;
+}
+
+.desc-cell:hover {
+  color: var(--color-six);
+  cursor: pointer;
+}
+
+/* Floating card tooltip */
+.floating-card {
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 10px;
+  width: 100%;
+  max-width: 45rem;
+  height: auto;
+  background-color: var(--color-six);
+  color: var(--color-eleven);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-six);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  white-space: normal;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+/* Show tooltip on hover */
+.desc-cell:hover .floating-card {
+  display: block;
+}
+
+
+
+/* ACTIONS MENU ICON */
+.actionsMenuIcon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.actionsMenuIcon button {
+  background: none;
+  border: 1px solid var(--color-eight);
+  border-radius: 6px;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.3rem;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.actionsMenuIcon button:hover {
+  cursor: pointer;
+  background-color: var(--color-five);
+  transform: scale(1.06);
+}
+
+.actionsMenuIcon button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* DROPDOWN MENU */
+.actionsBox {
+  position: fixed;
+  width: 8rem;
+  background-color: var(--color-eleven);
+  border: 1px solid var(--color-eight);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.actionsBox button {
+  width: 100%;
+  height: 100%;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  color: var(--color-six);
+  font-size: 0.9rem;
+  background: var(--color-eleven);
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--color-eight);
+  transition: all 150ms ease;
+}
+
+.actionsBox button span{
+  color: var(--color-one);
+  font-weight: 800;
+  transition: all 150ms ease;
+}
+
+.actionsBox button:hover span{
+  color: var(--color-three);
+}
+
+.actionsBox button:hover {
+  background-color: var(--color-five);
+  cursor: pointer;
+}
+
+.actionsBox button:last-child {
+  border-bottom: none;
+  transition: all 150ms ease;
+}
+
+.actionsBox button:last-child:hover{
+  background-color: red;
+}

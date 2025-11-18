@@ -1,0 +1,215 @@
+/* ===========================
+   Background overlay
+=========================== */
+.backgroundOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+/* ===========================
+   Upload Card Container
+=========================== */
+.uploadCard-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    z-index: 1001;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+/* ===========================
+   Header
+=========================== */
+.uploadCard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: var(--color-five);
+    border-bottom: 1px solid #444;
+}
+
+.uploadCard-header h2 {
+    color: #fff;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.uploadCard-header button {
+    background: none;
+    border: 1.5px solid var(--color-six);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 1.8rem;
+    height: 1.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 300ms ease;
+}
+
+.uploadCard-header button span {
+    padding: 0.3rem;
+    font-size: 1.02rem;
+    font-weight: 600;
+}
+
+.uploadCard-header button:hover {
+    transform: scale(1.05);
+}
+
+/* ===========================
+   Body
+=========================== */
+.uploadCard-body {
+    padding: 20px 24px;
+}
+
+/* ===========================
+   Form Row (Author + File)
+=========================== */
+.formRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* ===========================
+   Input Box Group
+=========================== */
+.inputBox {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.inputBox label {
+    color: #ccc;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* ===========================
+   Text Input
+=========================== */
+.inputBox input[type="text"] {
+    padding: 10px 12px;
+    height: 2.6rem;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background-color: #2b2b2b;
+    color: #fff;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+/* ===========================
+   Custom File Input (Dark)
+=========================== */
+.customFileInput {
+    position: relative;
+    width: 160px;
+    height: 2.6rem;
+    background-color: #2b2b2b;
+    border: 1px solid #555;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 0.95rem;
+}
+
+/* Hide the actual input */
+.customFileInput input[type="file"] {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Only show the span label */
+.customFileInput .fileLabel {
+    z-index: 1;
+    pointer-events: none;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 0.5rem;
+}
+
+
+.customFileInput::before {
+    content: "Choose File";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: #aaa;
+    font-size: 0.95rem;
+}
+
+.customFileInput:hover::before {
+    background-color: #3a3a3a;
+}
+
+/* ===========================
+   Textarea
+=========================== */
+.textareaInput {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background-color: #2b2b2b;
+    color: #fff;
+    resize: vertical;
+    outline: none;
+}
+
+.textareaInput:focus {
+    border-color: var(--color-five);
+    box-shadow: 0 0 0 2px rgba(74,144,226,0.25);
+}
+
+/* ===========================
+   Submit Button
+=========================== */
+.inputBox button {
+    padding: 10px 15px;
+    background-color: var(--color-five);
+    color: var(--color-six);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s ease;
+}
+
+.inputBox button:hover {
+    background-color: var(--color-one);
+}

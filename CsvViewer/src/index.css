@@ -1,0 +1,34 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--color-twelve);
+  background-color: var(--color-eleven);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --color-one: #646cff;
+  --color-two: #535bf2;
+  --color-three: #1a1a1a;
+  --color-four: #213547;
+  --color-five: #747bff;
+  --color-six: #f9f9f9;
+  --color-seven: #ffffff;
+  --color-eight: #888;
+  --color-nine: #61dafbaa;
+  --color-ten: #646cffaa;
+  --color-eleven: #242424;
+  --color-twelve: rgba(255, 255, 255, 0.87);
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+

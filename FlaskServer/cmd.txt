@@ -1,0 +1,4 @@
+
+# Activate ENV
+% source venv/bin/activate
+% deactivate
