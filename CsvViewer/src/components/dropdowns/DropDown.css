@@ -1,3 +1,4 @@
+
 .plotselection-box {
   position: relative;
   min-width: 117px;
@@ -26,7 +27,6 @@
   opacity: 0.85;
   transform: scale(1.02);
 }
-
 /* Dropdown Menu */
 .ddropdown-itemsbox {
   position: absolute;
@@ -65,25 +65,36 @@
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.55rem 1rem;
-  color: var(--color-six);
   cursor: pointer;
-  transition: 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
   user-select: none;
+  padding: 0.55rem 1rem;
+  border-radius: 4px;
 }
 
-/* Hover: highlight row */
+/* Text inside the label */
+.ddropdown-label span {
+  color: var(--color-six);
+  flex-grow: 1; /* takes available space */
+}
+
+/* Hover: highlight entire row */
 .ddropdown-label:hover {
   background: var(--color-five);
+}
+
+.ddropdown-label:hover span {
   color: var(--color-three);
 }
 
-/* Checkbox styling override (optional) */
+/* Checkbox styling */
 .ddropdown-label input[type="checkbox"] {
   cursor: pointer;
   width: 16px;
   height: 16px;
+  flex-shrink: 0;
 }
+
 
 /* Scrollbar styling */
 .ddropdown-itemsbox::-webkit-scrollbar {

@@ -96,78 +96,101 @@ function PlotTable({ dataSet }: { dataSet: any; selectedColumns?: string[] }) {
 // ---------------- BAR CHART ----------------
 function PlotBarChart({ dataSet }: { dataSet: any[] }) {
   const [graphCount, setGraphCount] = useState(1);
-  const [graphs, setGraphs] = useState<any[]>([]);
+
+  const [graphs, setGraphs] = useState(() =>
+    Array.from({ length: 1 }).map(() => ({
+      selectedColumn: Object.keys(dataSet[0] || {})[1] || "",
+      selectedItems: [],
+      openColumnDropdown: false,
+      openItemsDropdown: false,
+    }))
+  );
+
   const [loadingGraphs, setLoadingGraphs] = useState<boolean[]>([false]);
 
-  // Initialize graphs
+  const columns = Object.keys(dataSet[0] || {});
+  const nameList: string[] = dataSet.map((row) => row.Name);
+
+  // -----------------------------
+  // Resize graph arrays when graphCount changes
+  // -----------------------------
   useEffect(() => {
+    // Resize graphs[]
     setGraphs((prev) => {
-      const newGraphs = [...prev];
-      while (newGraphs.length < graphCount) {
-        newGraphs.push({
-          selectedColumn: Object.keys(dataSet[0] || {})[1] || "",
+      const arr = [...prev];
+
+      while (arr.length < graphCount) {
+        arr.push({
+          selectedColumn: columns[1] || "",
           selectedItems: [],
           openColumnDropdown: false,
           openItemsDropdown: false,
         });
       }
-      while (newGraphs.length > graphCount) newGraphs.pop();
-      return newGraphs;
+      while (arr.length > graphCount) arr.splice(graphCount);
+
+      return arr;
     });
 
+    // Resize loadingGraphs[]
     setLoadingGraphs((prev) => {
-      const newArr = [...prev];
-      while (newArr.length < graphCount) newArr.push(false);
-      while (newArr.length > graphCount) newArr.pop();
-      return newArr;
+      const arr = [...prev];
+
+      while (arr.length < graphCount) arr.push(false);
+      while (arr.length > graphCount) arr.splice(graphCount);
+
+      return arr;
     });
-  }, [graphCount, dataSet]);
+  }, [graphCount]);
 
-  const addGraph = () => setGraphCount((prev) => prev + 1);
-
-  const removeGraph = () =>
-    setGraphCount((prev) => (prev > 1 ? prev - 1 : 1));
-  
-
-  const nameList: string[] = dataSet.map((row) => row.Name);
-
+  // -----------------------------
+  // Update helper
+  // -----------------------------
   const updateGraph = (index: number, updates: any) => {
     setGraphs((prev) => {
-      const g = [...prev];
-      g[index] = { ...g[index], ...updates };
-      return g;
+      const arr = [...prev];
+      arr[index] = { ...arr[index], ...updates };
+      return arr;
     });
   };
 
+  // -----------------------------
+  // Update with loading overlay
+  // -----------------------------
   const handleUpdateWithLoading = (index: number, updates: any) => {
     setLoadingGraphs((prev) => {
-      const l = [...prev];
-      l[index] = true;
-      return l;
+      const arr = [...prev];
+      arr[index] = true;
+      return arr;
     });
 
     setTimeout(() => {
       updateGraph(index, updates);
+
       setLoadingGraphs((prev) => {
-        const l = [...prev];
-        l[index] = false;
-        return l;
+        const arr = [...prev];
+        arr[index] = false;
+        return arr;
       });
     }, 200);
   };
 
+  // -----------------------------
+  // Legend renderer
+  // -----------------------------
   const renderLegend = (transformed: any[]) => {
-    const MAX_LEGEND_ROWS = 3;
+    const MAX_ROWS = 3;
     const ROW_HEIGHT = 15;
+
     return (
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
           gap: "0.5rem",
-          maxHeight: `${MAX_LEGEND_ROWS * ROW_HEIGHT}px`,
+          maxHeight: `${MAX_ROWS * ROW_HEIGHT}px`,
           overflow: "hidden",
-          marginTop: "0.75rem"
+          marginTop: "0.75rem",
         }}
       >
         {transformed.map((row, idx) => (
@@ -176,12 +199,11 @@ function PlotBarChart({ dataSet }: { dataSet: any[] }) {
             style={{
               fontSize: 12,
               color: colorList[idx % colorList.length],
-              maxWidth: 100,
               whiteSpace: "nowrap",
-              overflow: "hidden",
               textOverflow: "ellipsis",
+              overflow: "hidden",
+              maxWidth: 120,
             }}
-            title={row.Name}
           >
             {row.Name}
           </span>
@@ -190,47 +212,60 @@ function PlotBarChart({ dataSet }: { dataSet: any[] }) {
     );
   };
 
+  // -----------------------------
+  // MAIN RENDER
+  // -----------------------------
   return (
     <div className="barGraph-container">
+      {/* ADD / REMOVE BUTTONS */}
       <div className="addGraph-btnbox">
+        <span>Add/Remove Chart</span>
         <button onClick={() => setGraphCount((prev) => prev + 1)}>+</button>
         <span>{graphCount}</span>
-        <button onClick={() => setGraphCount((prev) => (prev > 1 ? prev - 1 : 1))}>-</button>
+        <button onClick={() => setGraphCount((prev) => (prev > 1 ? prev - 1 : 1))}>
+          -
+        </button>
       </div>
 
+      {/* RENDER EACH BAR CHART */}
       {graphs.map((graph, i) => {
         if (!graph.selectedColumn) return null;
 
         const itemsToPlot =
-          graph.selectedItems.length > 0 ? graph.selectedItems : [...new Set(nameList)];
+          graph.selectedItems.length > 0 ? graph.selectedItems : nameList;
 
+        // Transform data
         const transformed = dataSet
           .filter((row) => itemsToPlot.includes(row.Name))
           .map((row) => {
-            const colKey = Object.keys(row).find(
-              (k) => k.toLowerCase() === graph.selectedColumn.toLowerCase()
+            // match column ignoring case
+            const actualKey = columns.find(
+              (c) => c.toLowerCase() === graph.selectedColumn.toLowerCase()
             );
+
             return {
               Name: row.Name,
-              [graph.selectedColumn]: colKey ? row[colKey] : 0,
+              [graph.selectedColumn]: actualKey ? row[actualKey] : 0,
             };
           });
 
         return (
-          <div key={`graph-${i}`} className="graphBox" style={{ position: "relative" }}>
+          <div key={`graph-${i}`} className="barGraph-box">
+            {/* LOADING OVERLAY */}
             {loadingGraphs[i] && (
-              <div className="loading-overlay" >
-                Loading...
-              </div>
+              <div className="loading-overlay">Loading...</div>
             )}
 
+            {/* HEADER */}
             <div className="barChart-header">
               <Dropdown
                 label="Column"
-                items={Object.keys(dataSet[0] || {})}
-                id={`columns-${i}`}
-                openId={graph.openColumnDropdown ? `columns-${i}` : null}
-                setOpenId={(val) => updateGraph(i, { openColumnDropdown: val === `columns-${i}` })}
+                items={columns}
+                id={`column-${i}`}
+                openId={graph.openColumnDropdown ? `column-${i}` : null}
+                setOpenId={(val) =>
+                  updateGraph(i, { openColumnDropdown: val === `column-${i}` })
+                }
                 selectedItems={[graph.selectedColumn]}
                 setSelectedItems={(arr) =>
                   handleUpdateWithLoading(i, { selectedColumn: arr[0] })
@@ -243,22 +278,34 @@ function PlotBarChart({ dataSet }: { dataSet: any[] }) {
                 items={nameList}
                 id={`items-${i}`}
                 openId={graph.openItemsDropdown ? `items-${i}` : null}
-                setOpenId={(val) => updateGraph(i, { openItemsDropdown: val === `items-${i}` })}
+                setOpenId={(val) =>
+                  updateGraph(i, { openItemsDropdown: val === `items-${i}` })
+                }
                 selectedItems={graph.selectedItems}
-                setSelectedItems={(arr) => handleUpdateWithLoading(i, { selectedItems: arr })}
+                setSelectedItems={(arr) =>
+                  handleUpdateWithLoading(i, { selectedItems: arr })
+                }
                 multiSelect={true}
               />
 
-              <h2>{graph.selectedColumn}</h2>
+              <h2>{graph.selectedColumn} Bar Chart</h2>
             </div>
 
-            <BarChart style={{ maxWidth: "100%", maxHeight: "100%" }} data={transformed}>
+            {/* BAR CHART */}
+            <BarChart
+              data={transformed}
+              style={{ width: "100%", height: "100%", aspectRatio:"16/9" }}
+            >
               <XAxis dataKey="Name" tick={{ fontSize: 10 }} />
-              <YAxis />
+              <YAxis tick={{ fontSize: 10 }} />
               <Legend content={() => renderLegend(transformed)} />
-              <Bar dataKey={graph.selectedColumn} name={graph.selectedColumn}>
+
+              <Bar dataKey={graph.selectedColumn}>
                 {transformed.map((_, idx) => (
-                  <Cell key={`cell-${idx}`} fill={colorList[idx % colorList.length]} />
+                  <Cell
+                    key={`cell-${idx}`}
+                    fill={colorList[idx % colorList.length]}
+                  />
                 ))}
               </Bar>
             </BarChart>
@@ -270,17 +317,53 @@ function PlotBarChart({ dataSet }: { dataSet: any[] }) {
 }
 
 
+// ---------------- PIE CHART ----------------
+function PlotPieChart(){
 
-// --- Placeholder Components ---
-function Placeholder(props: any) {
+
   return (
-    <div className="pieChart-container">
-      {[...Array(props.graphCount)].map((_, i) => (
-        <p key={i}>{JSON.stringify(props)}</p>
-      ))}
+    <div className="piechart-container">
+      <h2>Not Implemented yet...</h2>
     </div>
-  );
+  )
 }
+
+
+// ---------------- HISTOGRAM CHART ----------------
+function PlotHistogram(){
+
+
+  return (
+    <div className="histogramchart-container">
+      <h2>Not Implemented yet...</h2>
+    </div>
+  )
+}
+
+
+// ---------------- SCATTER CHART ----------------
+function PlotScatterChart(){
+
+
+  return (
+    <div className="scatterchart-container">
+      <h2>Not Implemented yet...</h2>
+    </div>
+  )
+}
+
+
+// ---------------- BOX CHART ----------------
+function PlotBoxChart(){
+
+
+  return (
+    <div className="boxchart-container">
+      <h2>Not Implemented yet...</h2>
+    </div>
+  )
+}
+
 
 
 // ---------------- MAIN ROUTER ----------------
@@ -295,19 +378,19 @@ function CustomPlots({ dataSet, selectedPlot = "Table" }: CustomPlotsProps) {
       return <PlotBarChart dataSet={dataSet.data} />;
 
     case "Pie Chart":
-      return <Placeholder dataSet={dataSet.data} />;
+      return <PlotPieChart />;
 
     case "Line Graph":
-      return <Placeholder dataSet={dataSet.data} />;
+      return <PlotPieChart />;
 
     case "Histogram":
-      return <Placeholder dataSet={dataSet.data} />;
+      return <PlotHistogram />;
 
     case "Scatter Chart":
-      return <Placeholder dataSet={dataSet.data} />;
+      return <PlotScatterChart />;
 
     case "Box Chart":
-      return <Placeholder dataSet={dataSet.data} />;
+      return <PlotBoxChart />;
 
     default:
       return null;

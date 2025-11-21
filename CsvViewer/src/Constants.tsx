@@ -37,6 +37,9 @@ export type DropdownProps = {
   multiSelect?: boolean;
 };
 
+export interface PlotBarChartProps {
+  dataSet: any[];
+}
 
 
 export const Porxy = 'http://127.0.0.1:5000'
