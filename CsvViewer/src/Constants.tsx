@@ -16,8 +16,6 @@ export interface UploadData {
 export interface CustomPlotsProps {
   selectedPlot: string;
   dataSet: any;
-  selectedArg?: string[];
-  graphCount?: number;
 }
 
 
@@ -62,7 +60,8 @@ export const colorList = [
   "#D5ECC2", "#FFC7C7", "#C1FFD7", "#D9D7F1", 
   "#FFEBCC", "#8884d8", "#82ca9d", "#ffc658", 
   "#ff7f7f", "#8dd1e1", "#a4de6c", "#d0ed57", 
-  "#888888", "#ffbb28", "#0088fe",
+  "#888888", "#ffbb28", "#0088fe", "#8884d8", 
+  "#82ca9d", "#ffc658", "#ff8042", "#8dd1e1"
 ];
 
 // ---- Data ----

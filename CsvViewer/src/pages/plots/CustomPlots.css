@@ -65,24 +65,6 @@
   color: var(--color-six);
 }
 
-
-.barGraph-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  width: 100%;
-  height: 100%;
-  padding: 1rem 0;
-}
-
-.graphBox {
-  flex: 1 1 600px;
-  height: 100%;
-  width: 100%;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
 .actionbox-header{
   display: flex;
   align-items: center;
@@ -90,3 +72,138 @@
   gap: 1rem;
   margin-bottom: 1rem;
 }
+
+
+
+/* Container for all bar graphs */
+.barGraph-container {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Sticky Add/Remove graph buttons */
+.addGraph-btnbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: sticky;
+  top: 0;
+  padding: 0.5rem 0;
+  z-index: 15;
+}
+
+/* Add/Remove buttons */
+.addGraph-btnbox button {
+  padding: 0.25rem 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid var(--color-six);
+  background-color: var(--color-five);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.addGraph-btnbox button:hover {
+  background-color: var(--color-four);
+  transform: scale(1.1);
+}
+
+.addGraph-btnbox span {
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Individual bar graph box */
+.barGraph-box {
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.barGraph-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Header section for controls and title */
+.barChart-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+}
+
+/* Graph box wrapper for each chart */
+.graphBox {
+  width: 100%;
+  min-height: 350px;
+  padding-top: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chart title */
+h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 20;
+}
+
+/* Responsive adjustments */
+@media (min-width: 900px) {
+  .barGraph-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .barGraph-box {
+    flex: 1 1 calc(50% - 1rem); /* two charts per row */
+    max-width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 899px) {
+  .barGraph-box {
+    width: 100%; /* single column on small screens */
+  }
+}
+
