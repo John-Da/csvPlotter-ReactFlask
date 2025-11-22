@@ -103,7 +103,7 @@ function AllPlots() {
     <div className="allplots-container">
       {/* HEADER */}
       <div className="allplots-header">
-        <a href={PageRoutes.homepage.path}>BACK</a>
+        <a href={`#${PageRoutes.homepage.path}`}>BACK</a>
       </div>
 
       {/* BODY */}
