@@ -8,7 +8,7 @@ import tempfile
 app = Flask(__name__)
 
 # Enable CORS explicitly for development frontend
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app)
 
 UPLOAD_FOLDER = "./uploaded"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
