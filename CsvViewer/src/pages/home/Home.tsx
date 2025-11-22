@@ -74,7 +74,7 @@ function Home() {
     if (!fileData) return alert("File not found");
 
     const url = `${PageRoutes.waitingroompage.path}?id=${fileData.id}&filename=${fileData.fileName}&filetype=${targetType}`;
-    window.open(url, "_blank");
+    window.open(`#${url}`, "_blank");
   };
 
   const handleDelete = async (id: string) => {

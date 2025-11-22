@@ -48,7 +48,7 @@ function AllPlots() {
   // Open conversion page (WaitingRoom)
   const handleConvertCSV = (targetType: string) => {
     const url = `${PageRoutes.waitingroompage.path}?id=${fileId}&filename=${fileName}&filetype=${targetType}`;
-    window.open(url, "_blank");
+    window.open(`#${url}`, "_blank");
   };
 
 
@@ -103,7 +103,7 @@ function AllPlots() {
     <div className="allplots-container">
       {/* HEADER */}
       <div className="allplots-header">
-        <a href={PageRoutes.homepage.path}>BACK</a>
+        <a href={`#${PageRoutes.homepage.path}`}>BACK</a>
       </div>
 
       {/* BODY */}
