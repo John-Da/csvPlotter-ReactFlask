@@ -47,7 +47,7 @@ function AllPlots() {
 
   // Open conversion page (WaitingRoom)
   const handleConvertCSV = (targetType: string) => {
-    const url = `${PageRoutes.waitingroompage.path}?id=${fileId}&filename=${fileName}&filetype=${targetType}`;
+    const url = `${import.meta.env.BASE_URL}${PageRoutes.waitingroompage.path}?id=${fileId}&filename=${fileName}&filetype=${targetType}`;
     window.open(url, "_blank");
   };
 

@@ -73,7 +73,7 @@ function Home() {
     const fileData = conversion.find(f => f.id === id);
     if (!fileData) return alert("File not found");
 
-    const url = `${PageRoutes.waitingroompage.path}?id=${fileData.id}&filename=${fileData.fileName}&filetype=${targetType}`;
+    const url = `${import.meta.env.BASE_URL}${PageRoutes.waitingroompage.path}?id=${fileData.id}&filename=${fileData.fileName}&filetype=${targetType}`;
     window.open(url, "_blank");
   };
 
