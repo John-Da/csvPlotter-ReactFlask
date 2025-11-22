@@ -8,7 +8,7 @@ import tempfile
 app = Flask(__name__)
 
 # Enable CORS explicitly for development frontend
-CORS(app)
+CORS(app, origins=["https://john-da.github.io/csvPlotter-ReactFlask"])
 
 UPLOAD_FOLDER = "./uploaded"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
