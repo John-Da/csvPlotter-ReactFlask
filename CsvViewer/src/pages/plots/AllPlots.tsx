@@ -27,7 +27,7 @@ function AllPlots() {
   const handleDownloadCSV = async () => {
     try {
       const res = await fetch(
-        `${Porxy}${PageRoutes.downloadpage.path}?id=${fileId}&filename=${fileName}`
+        `${Porxy}/download/file?id=${fileId}&filename=${fileName}`
       );
 
       if (!res.ok) throw new Error("Failed to download file");

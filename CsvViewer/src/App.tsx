@@ -11,7 +11,6 @@ function App() {
         <Route path={PageRoutes.homepage.path} Component={PageRoutes.homepage.component} />
         <Route path={PageRoutes.viewplotspage.path} Component={PageRoutes.viewplotspage.component} />
         <Route path={PageRoutes.waitingroompage.path} Component={PageRoutes.waitingroompage.component} />
-        <Route path={PageRoutes.downloadpage.path} Component={PageRoutes.downloadpage.component} />
       </Routes>
       <div style={{
         width:"100%", height:"2.5rem", display:"flex", 

@@ -40,7 +40,7 @@ function WaitingRoom() {
 
 
   const handleDownload = async () => {
-    const url = `${Porxy}${PageRoutes.downloadpage.path}?id=${fileId}&filename=${fileName}&filetype=${fileType}`;
+    const url = `${Porxy}/download/file?id=${fileId}&filename=${fileName}&filetype=${fileType}`;
 
     const res = await fetch(url);
     const blob = await res.blob();

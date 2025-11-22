@@ -1,4 +1,3 @@
-import DownloadFile from "./pages/waitingroom/DownloadFile";
 import WaitingRoom from "./pages/waitingroom/WaitingRoom";
 import Home from "./pages/home/Home";
 import AllPlots from "./pages/plots/AllPlots";
@@ -48,10 +47,14 @@ export const PageRoutes = {
   homepage: {path: "/", component: Home},
   viewplotspage: {path: "/view-plots", component: AllPlots},
   waitingroompage: {path: "/convert/file", component: WaitingRoom},
-  downloadpage: {path: "/download/file", component: DownloadFile},
 }
 
-export const PlotTypes = ["Table", "Bar Chart", "Pie Chart", "Line Graph", "Histogram", "Scatter Chart", "Box Chart" ]
+export const PlotTypes = [
+  "Table", "Bar Chart", "Scatter Chart", "Pie Chart", 
+  "Line Graph", "Histogram", 
+  "Box Chart" 
+]
+
 export const MatPlotTypes = []
 
 export const colorList = [
