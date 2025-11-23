@@ -41,3 +41,86 @@
   scrollbar-color: rgba(0,0,0,0.15) transparent; 
 }
 
+/* FULLSCREEN OVERLAY */
+.statusLoading-box {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(250, 250, 250, 0.92);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* FADE-IN (default) */
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* MOVE UP + FADE OUT */
+.fade-up {
+  opacity: 0;
+  transform: translateY(-40px);
+}
+
+/* LOADING CIRCLE AREA */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-animation {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #d2d2d2;
+  border-top-color: #4a6cf7;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading span {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #4a6cf7;
+}
+
+/* CHECKMARK STATE */
+.done {
+  flex-direction: column;
+}
+
+.checkmark {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #4caf50;
+  animation: pop 0.4s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.done span {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #4caf50;
+}
+

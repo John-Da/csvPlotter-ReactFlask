@@ -21,6 +21,11 @@ CORS(app, resources={
 UPLOAD_FOLDER = "./uploaded"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+@app.route("/ping")
+def ping():
+    return {"status": "ok"}
+
+
 # Upload CSV and save on server
 @app.route("/upload", methods=["POST"])
 def upload_csv():
